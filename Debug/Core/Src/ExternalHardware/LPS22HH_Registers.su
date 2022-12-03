@@ -1,0 +1,3 @@
+../Core/Src/ExternalHardware/LPS22HH_Registers.c:18:17:LPS22HH_ValidateParams	32	static
+../Core/Src/ExternalHardware/LPS22HH_Registers.c:52:9:LPS22HH_ReadReg	40	static
+../Core/Src/ExternalHardware/LPS22HH_Registers.c:71:9:LPS22HH_WriteReg	40	static

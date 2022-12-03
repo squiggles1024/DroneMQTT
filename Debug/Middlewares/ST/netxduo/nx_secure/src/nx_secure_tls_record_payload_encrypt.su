@@ -1,0 +1,2 @@
+../Middlewares/ST/netxduo/nx_secure/src/nx_secure_tls_record_payload_encrypt.c:87:6:_nx_secure_tls_record_payload_encrypt	136	static
+../Middlewares/ST/netxduo/nx_secure/src/nx_secure_tls_record_payload_encrypt.c:424:13:_nx_secure_tls_record_data_encrypt_init	104	static

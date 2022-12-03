@@ -1,0 +1,2 @@
+../Middlewares/ST/netxduo/nx_secure/src/nx_secure_tls_process_clienthello.c:100:6:_nx_secure_tls_process_clienthello	208	static
+../Middlewares/ST/netxduo/nx_secure/src/nx_secure_tls_process_clienthello.c:574:13:_nx_secure_tls_check_ciphersuite	24	static

@@ -1,0 +1,12 @@
+../NetXDuo/Target/mx_wifi_azure_rtos.c:15:6:mx_wifi_alloc_init	16	static
+../NetXDuo/Target/mx_wifi_azure_rtos.c:29:8:mx_wifi_malloc	24	static
+../NetXDuo/Target/mx_wifi_azure_rtos.c:49:6:mx_wifi_free	24	static
+../NetXDuo/Target/mx_wifi_azure_rtos.c:59:12:mx_net_buffer_alloc	24	static
+../NetXDuo/Target/mx_wifi_azure_rtos.c:94:7:mx_net_buffer_free	24	static
+../NetXDuo/Target/mx_wifi_azure_rtos.c:104:6:mx_wifi_thread_init	64	static
+../NetXDuo/Target/mx_wifi_azure_rtos.c:122:6:mx_wifi_thread_deinit	16	static
+../NetXDuo/Target/mx_wifi_azure_rtos.c:132:6:mx_wifi_thread_terminate	8	static
+../NetXDuo/Target/mx_wifi_azure_rtos.c:137:6:mx_wifi_fifo_init	40	static
+../NetXDuo/Target/mx_wifi_azure_rtos.c:152:6:mx_wifi_fifo_deinit	16	static
+../NetXDuo/Target/mx_wifi_azure_rtos.c:162:6:mx_wifi_fifo_push	24	static
+../NetXDuo/Target/mx_wifi_azure_rtos.c:169:8:mx_wifi_fifo_pop	24	static

@@ -1,0 +1,17 @@
+../Core/Src/app_threadx.c:131:6:App_ThreadX_Init	64	static
+../Core/Src/app_threadx.c:372:6:MX_ThreadX_Init	8	static
+../Core/Src/app_threadx.c:394:6:ReadTemperatureThread	32	static
+../Core/Src/app_threadx.c:435:6:ReadHumidityThread	32	static
+../Core/Src/app_threadx.c:477:6:ReadPressureThread	32	static
+../Core/Src/app_threadx.c:519:6:ReadMagneticThread	40	static
+../Core/Src/app_threadx.c:565:6:InitializeAHRS	64	static
+../Core/Src/app_threadx.c:614:6:ReadMotionThread	48	static
+../Core/Src/app_threadx.c:652:6:TIM7_ResumeMotionThread	8	static
+../Core/Src/app_threadx.c:667:6:ReadLightThread	32	static
+../Core/Src/app_threadx.c:696:6:RedLEDToggleThread	16	static
+../Core/Src/app_threadx.c:711:6:GreenLEDToggleThread	16	static
+../Core/Src/app_threadx.c:734:6:CaptureFrameThread	24	static
+../Core/Src/app_threadx.c:764:6:HAL_DCMI_FrameEventCallback	16	static
+../Core/Src/app_threadx.c:788:6:HAL_DCACHE_CleanAndInvalidateByAddrCallback	16	static
+../Core/Src/app_threadx.c:806:20:ConvertVectorOrientation	24	static
+../Core/Src/app_threadx.c:820:13:DataSendNotify	16	static

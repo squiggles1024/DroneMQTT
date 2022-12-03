@@ -1,0 +1,17 @@
+../Core/Src/ExternalHardware/HTS221.c:26:9:HTS221_Init	32	static
+../Core/Src/ExternalHardware/HTS221.c:63:6:HTS221_DeInit	16	static
+../Core/Src/ExternalHardware/HTS221.c:88:9:HTS221_StartConversion	24	static
+../Core/Src/ExternalHardware/HTS221.c:108:9:HTS221_EnableHeater	24	static
+../Core/Src/ExternalHardware/HTS221.c:130:9:HTS221_DisableHeater	24	static
+../Core/Src/ExternalHardware/HTS221.c:151:9:HTS221_ResetRegisters	24	static
+../Core/Src/ExternalHardware/HTS221.c:164:9:HTS221_PowerCycle	24	static
+../Core/Src/ExternalHardware/HTS221.c:187:9:HTS221_ReadTemperature	32	static
+../Core/Src/ExternalHardware/HTS221.c:223:9:HTS221_ReadHumidity	32	static
+../Core/Src/ExternalHardware/HTS221.c:260:9:HTS221_PowerDown	24	static
+../Core/Src/ExternalHardware/HTS221.c:281:9:HTS221_PowerUp	24	static
+../Core/Src/ExternalHardware/HTS221.c:302:16:HTS221_ReadRegWrapper	32	static
+../Core/Src/ExternalHardware/HTS221.c:315:16:HTS221_WriteRegWrapper	32	static
+../Core/Src/ExternalHardware/HTS221.c:328:16:HTS221_RegisterInit	32	static
+../Core/Src/ExternalHardware/HTS221.c:359:16:HTS221_CalculateTemperature	48	static
+../Core/Src/ExternalHardware/HTS221.c:428:16:HTS221_CalculateHumidity	48	static
+../Core/Src/ExternalHardware/HTS221.c:500:9:HTS221_GetSamplePeriod	16	static

@@ -1,0 +1,1 @@
+../Middlewares/ST/netxduo/nx_secure/src/nx_secure_tls_send_clienthello.c:86:6:_nx_secure_tls_send_clienthello	88	static

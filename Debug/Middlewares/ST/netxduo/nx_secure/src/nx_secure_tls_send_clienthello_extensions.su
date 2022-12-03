@@ -1,0 +1,6 @@
+../Middlewares/ST/netxduo/nx_secure/src/nx_secure_tls_send_clienthello_extensions.c:136:6:_nx_secure_tls_send_clienthello_extensions	48	static
+../Middlewares/ST/netxduo/nx_secure/src/nx_secure_tls_send_clienthello_extensions.c:312:13:_nx_secure_tls_send_clienthello_sig_extension	56	static
+../Middlewares/ST/netxduo/nx_secure/src/nx_secure_tls_send_clienthello_extensions.c:395:6:_nx_secure_tls_get_signature_algorithm	32	static
+../Middlewares/ST/netxduo/nx_secure/src/nx_secure_tls_send_clienthello_extensions.c:1334:13:_nx_secure_tls_send_clienthello_sni_extension	40	static
+../Middlewares/ST/netxduo/nx_secure/src/nx_secure_tls_send_clienthello_extensions.c:1488:13:_nx_secure_tls_send_clienthello_sec_reneg_extension	40	static
+../Middlewares/ST/netxduo/nx_secure/src/nx_secure_tls_send_clienthello_extensions.c:1661:13:_nx_secure_tls_send_clienthello_sec_spf_extensions	48	static

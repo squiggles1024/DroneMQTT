@@ -1,0 +1,6 @@
+../Core/Src/BoardSupportPackage/BSP_motion.c:24:9:BSP_MotionSensorInit	168	static
+../Core/Src/BoardSupportPackage/BSP_motion.c:131:9:BSP_ReadAccelXYZ	32	static
+../Core/Src/BoardSupportPackage/BSP_motion.c:150:9:BSP_ReadGyroXYZ	32	static
+../Core/Src/BoardSupportPackage/BSP_motion.c:176:9:BSP_GetAccelPeriod	24	static
+../Core/Src/BoardSupportPackage/BSP_motion.c:189:9:BSP_GetGyroPeriod	24	static
+../Core/Src/BoardSupportPackage/BSP_motion.c:202:6:BSP_SynchronizeIRQ	24	static

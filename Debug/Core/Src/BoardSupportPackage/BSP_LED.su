@@ -1,0 +1,6 @@
+../Core/Src/BoardSupportPackage/BSP_LED.c:19:6:BSP_LEDToggleRed	8	static
+../Core/Src/BoardSupportPackage/BSP_LED.c:31:6:BSP_LEDToggleGreen	8	static
+../Core/Src/BoardSupportPackage/BSP_LED.c:43:6:BSP_LEDTurnOffRed	8	static
+../Core/Src/BoardSupportPackage/BSP_LED.c:55:6:BSP_LEDTurnOnRed	8	static
+../Core/Src/BoardSupportPackage/BSP_LED.c:67:6:BSP_LEDTurnOffGreen	8	static
+../Core/Src/BoardSupportPackage/BSP_LED.c:79:6:BSP_LEDTurnOnGreen	8	static

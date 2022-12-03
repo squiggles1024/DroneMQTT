@@ -1,0 +1,14 @@
+../Core/Src/ExternalHardware/LPS22HH.c:32:9:LPS22HH_Init	40	static
+../Core/Src/ExternalHardware/LPS22HH.c:76:9:LPS22HH_DeInit	16	static
+../Core/Src/ExternalHardware/LPS22HH.c:109:9:LPS22HH_ResetDevice	24	static
+../Core/Src/ExternalHardware/LPS22HH.c:140:9:LPS22HH_SetReferencePressure	24	static
+../Core/Src/ExternalHardware/LPS22HH.c:163:9:LPS22HH_GetReferencePressure	24	static
+../Core/Src/ExternalHardware/LPS22HH.c:191:9:LPS22HH_StartConversion	24	static
+../Core/Src/ExternalHardware/LPS22HH.c:223:9:LPS22HH_ReadPressure	24	static
+../Core/Src/ExternalHardware/LPS22HH.c:260:16:LPS22HH_SWReset	40	static
+../Core/Src/ExternalHardware/LPS22HH.c:305:16:LPS22HH_Reboot	40	static
+../Core/Src/ExternalHardware/LPS22HH.c:350:16:LPS22HH_WriteRegWrapper	32	static
+../Core/Src/ExternalHardware/LPS22HH.c:367:16:LPS22HH_ReadRegWrapper	32	static
+../Core/Src/ExternalHardware/LPS22HH.c:384:16:LPS22HH_RegisterInit	24	static
+../Core/Src/ExternalHardware/LPS22HH.c:485:13:ConvertPressureData	24	static
+../Core/Src/ExternalHardware/LPS22HH.c:507:9:LPS22HH_GetSamplePeriod	16	static

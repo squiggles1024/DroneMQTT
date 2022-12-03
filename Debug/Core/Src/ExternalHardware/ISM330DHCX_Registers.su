@@ -1,0 +1,3 @@
+../Core/Src/ExternalHardware/ISM330DHCX_Registers.c:22:9:ISM330DHCX_ReadReg	40	static
+../Core/Src/ExternalHardware/ISM330DHCX_Registers.c:45:9:ISM330DHCX_WriteReg	40	static
+../Core/Src/ExternalHardware/ISM330DHCX_Registers.c:68:16:ISM330DHCX_ValidateParams	24	static

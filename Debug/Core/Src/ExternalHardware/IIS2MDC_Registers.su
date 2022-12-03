@@ -1,0 +1,3 @@
+../Core/Src/ExternalHardware/IIS2MDC_Registers.c:18:16:IIS2MDC_ValidateParams	32	static
+../Core/Src/ExternalHardware/IIS2MDC_Registers.c:52:9:IIS2MDC_ReadReg	40	static
+../Core/Src/ExternalHardware/IIS2MDC_Registers.c:71:9:IIS2MDC_WriteReg	40	static

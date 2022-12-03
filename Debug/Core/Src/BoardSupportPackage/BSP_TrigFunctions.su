@@ -1,0 +1,2 @@
+../Core/Src/BoardSupportPackage/BSP_TrigFunctions.c:23:12:f32_to_q31	32	static
+../Core/Src/BoardSupportPackage/BSP_TrigFunctions.c:32:7:BSP_atan	80	static

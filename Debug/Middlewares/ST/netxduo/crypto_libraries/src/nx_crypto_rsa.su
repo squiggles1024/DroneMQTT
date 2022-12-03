@@ -1,0 +1,4 @@
+../Middlewares/ST/netxduo/crypto_libraries/src/nx_crypto_rsa.c:90:22:_nx_crypto_rsa_operation	152	static
+../Middlewares/ST/netxduo/crypto_libraries/src/nx_crypto_rsa.c:216:22:_nx_crypto_method_rsa_init	32	static
+../Middlewares/ST/netxduo/crypto_libraries/src/nx_crypto_rsa.c:299:22:_nx_crypto_method_rsa_cleanup	16	static
+../Middlewares/ST/netxduo/crypto_libraries/src/nx_crypto_rsa.c:371:22:_nx_crypto_method_rsa_operation	96	static

@@ -1,0 +1,17 @@
+../Core/Src/ExternalHardware/ISM330DHCX.c:35:9:ISM330DHCX_Init	64	static
+../Core/Src/ExternalHardware/ISM330DHCX.c:92:6:ISM330DHCX_DeInit	16	static
+../Core/Src/ExternalHardware/ISM330DHCX.c:124:9:ISM330DHCX_ResetDevice	72	static
+../Core/Src/ExternalHardware/ISM330DHCX.c:137:9:ISM330DHCX_RegisterIOBus	24	static
+../Core/Src/ExternalHardware/ISM330DHCX.c:156:9:ISM330DHCX_ReadAccel	40	static
+../Core/Src/ExternalHardware/ISM330DHCX.c:197:9:ISM330DHCX_ReadGyro	40	static
+../Core/Src/ExternalHardware/ISM330DHCX.c:238:9:ISM330DHCX_ReadTemp	24	static
+../Core/Src/ExternalHardware/ISM330DHCX.c:274:9:ISM330DHCX_Reboot	24	static
+../Core/Src/ExternalHardware/ISM330DHCX.c:319:9:ISM330DHCX_Reset	24	static
+../Core/Src/ExternalHardware/ISM330DHCX.c:362:16:ISM330DHCX_ReadWrapper	32	static
+../Core/Src/ExternalHardware/ISM330DHCX.c:379:16:ISM330DHCX_WriteWrapper	32	static
+../Core/Src/ExternalHardware/ISM330DHCX.c:396:16:ISM330DHCX_RegisterInit	32	static
+../Core/Src/ExternalHardware/ISM330DHCX.c:562:13:ConvertXLData	32	static
+../Core/Src/ExternalHardware/ISM330DHCX.c:588:13:ConvertGData	32	static
+../Core/Src/ExternalHardware/ISM330DHCX.c:621:13:ConvertTData	24	static
+../Core/Src/ExternalHardware/ISM330DHCX.c:634:9:ISM330DHCX_GetAccelPeriod	16	static
+../Core/Src/ExternalHardware/ISM330DHCX.c:687:9:ISM330DHCX_GetGyroPeriod	16	static

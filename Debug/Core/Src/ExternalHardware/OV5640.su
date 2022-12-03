@@ -1,0 +1,11 @@
+../Core/Src/ExternalHardware/OV5640.c:13:6:OV5640_LinkBus	24	static
+../Core/Src/ExternalHardware/OV5640.c:24:9:OV5640_Init	40	static
+../Core/Src/ExternalHardware/OV5640.c:336:9:OV5640_ReadReg	32	static
+../Core/Src/ExternalHardware/OV5640.c:342:9:OV5640_WriteReg	32	static
+../Core/Src/ExternalHardware/OV5640.c:347:16:OV5640_ReadWrapper	40	static
+../Core/Src/ExternalHardware/OV5640.c:352:16:OV5640_WriteWrapper	40	static
+../Core/Src/ExternalHardware/OV5640.c:357:16:OV5640_Delay	24	static
+../Core/Src/ExternalHardware/OV5640.c:367:9:OV5640_SetResolution	32	static
+../Core/Src/ExternalHardware/OV5640.c:502:9:OV5640_SetPixelFormat	32	static
+../Core/Src/ExternalHardware/OV5640.c:703:9:OV5640_SetPolarities	32	static
+../Core/Src/ExternalHardware/OV5640.c:728:9:OV5640_ReadID	24	static

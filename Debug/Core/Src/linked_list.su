@@ -1,0 +1,3 @@
+../Core/Src/linked_list.c:55:19:MX_SPI_Rx_Queue_Config	120	static
+../Core/Src/linked_list.c:95:19:MX_SPI_Tx_Queue_Config	120	static
+../Core/Src/linked_list.c:135:19:MX_ProjectDMAQueue_Config	120	static

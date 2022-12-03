@@ -1,0 +1,3 @@
+../Core/Src/ExternalHardware/HTS221_Register.c:21:9:HTS221_ReadReg	40	static
+../Core/Src/ExternalHardware/HTS221_Register.c:44:9:HTS221_WriteReg	40	static
+../Core/Src/ExternalHardware/HTS221_Register.c:66:16:HTS221_ValidateParams	24	static

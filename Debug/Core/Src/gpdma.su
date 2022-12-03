@@ -1,0 +1,2 @@
+../Core/Src/gpdma.c:44:6:MX_GPDMA1_Init	16	static
+../Core/Src/gpdma.c:126:6:DCMI_DMA_Init	128	static
