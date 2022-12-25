@@ -26,6 +26,7 @@
 #include "app_azure_rtos.h"
 #include "main.h"
 #include "tim.h"
+#include "i2c.h"
 #include "dcache.h"
 #include "BSP_ram.h"
 #include "BSP_camera.h"
@@ -39,20 +40,11 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-typedef struct
-{
-	float Roll;
-	float Pitch;
-	float RollRate;
-	float PitchRate;
-	float YawRate;
-}AHRS_Handle_t;
 
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define AHRS_INIT_TIMESLICE (5000)          //Initialize Roll/Pitch with 5 seconds worth of raw data
 
 /* USER CODE END PD */
 
@@ -118,8 +110,7 @@ VOID ReadMotionThread(ULONG init);
 VOID ReadLightThread(ULONG init);
 VOID CaptureFrameThread(ULONG init);
 VOID SendFrameThread(ULONG init);
-VOID InitializeAHRS(AHRS_Handle_t *Attitude);
-inline static VOID ConvertVectorOrientation(float *Xvector, float *Yvector);
+void InitializeAHRS(AHRS_Handle_t *Attitude);
 static VOID DataSendNotify(TX_QUEUE *QueuePtr);
 /* USER CODE END PFP */
 
@@ -557,91 +548,57 @@ VOID ReadMagneticThread(ULONG init)
 }
 
 /***************************************************************************************************
- * @Brief: Initializes Drone Heading by taking 5 seconds worth of data from the accelerometer and
- *         gyroscope and taking the average... and doing some trig.
- * @Param: Attitude handle to initialize.
- * @Return: None
- ***************************************************************************************************/
-VOID InitializeAHRS(AHRS_Handle_t *Attitude)
-{
-	float AvgAccX = 0, AvgAccY = 0, AvgAccZ = 0;
-	float AvgGyroX = 0, AvgGyroY = 0, AvgGyroZ = 0;
-	float DummyDataBuffer[3];
-	uint32_t TimeStart = HAL_GetTick();                                                                                  //Initialize a timer
-	uint16_t AccSamples = 0, GyroSamples = 0;
-	while(HAL_GetTick() < (TimeStart + AHRS_INIT_TIMESLICE))
-	{
-		tx_mutex_get(&MutexI2C2,TX_NO_WAIT);
-		if(BSP_ReadAccelXYZ(&DummyDataBuffer[0], &DummyDataBuffer[1], &DummyDataBuffer[2]) == ISM330DHCX_DataReady)      //Gather Data from Accel/Gyro for 5 seconds
-		{
-			AvgAccX +=  DummyDataBuffer[0];
-			AvgAccY +=  DummyDataBuffer[1];
-			AvgAccZ +=  DummyDataBuffer[2];
-			AccSamples++;
-		}
-
-		if(BSP_ReadGyroXYZ(&DummyDataBuffer[0], &DummyDataBuffer[1], &DummyDataBuffer[2]) == ISM330DHCX_DataReady)
-		{
-			AvgGyroX +=  DummyDataBuffer[0];
-			AvgGyroY +=  DummyDataBuffer[1];
-			AvgGyroZ +=  DummyDataBuffer[2];
-			GyroSamples++;
-		}
-		tx_mutex_put(&MutexI2C2);
-	}
-	ConvertVectorOrientation(&AvgAccX, &AvgAccY);            //Convert Vector to standard drone orientation. (X = Y, Y = -X)
-	ConvertVectorOrientation(&AvgGyroX, &AvgGyroY);
-	AvgAccX = AvgAccX / AccSamples;                          //Calculate the Average acceleration vector and rotation vectors
-	AvgAccY = AvgAccY / AccSamples;
-	AvgAccZ = AvgAccZ / AccSamples;
-	AvgGyroX = AvgGyroX / GyroSamples;
-	AvgGyroY = AvgGyroY / GyroSamples;
-	AvgGyroZ = AvgGyroZ / GyroSamples;
-
-	Attitude->Roll = RAD_2_DEG(BSP_atan(AvgAccY/AvgAccZ)); //Calculate roll
-	Attitude->Pitch = RAD_2_DEG(asin(AvgAccX));            //Calculuate pitch
-	Attitude->RollRate = AvgGyroY;                         //Rates are measured directly and do not require additional calculation.
-	Attitude->PitchRate = AvgGyroX;
-	Attitude->YawRate = AvgGyroZ;
-}
-
-/***************************************************************************************************
  * @Brief: Function reads data from accelerometer/gyro data and calculates roll, pitch, roll rate,
  *         pitch rate, and yaw rate using an extended Kalman Filter.
  * @Param: None
  * @Return: None
  ***************************************************************************************************/
+static AHRS_Handle_t AHRS;
 VOID ReadMotionThread(ULONG init)
 {
-	int32_t ret = ISM330DHCX_Ok;
 	float AccelX = 0, AccelY = 0, AccelZ = 0;
 	float GyroX = 0, GyroY = 0, GyroZ = 0;
-	static AHRS_Handle_t AHRS;
-	uint32_t AccelInitTime, GyroInitTime;
+	static uint8_t KalmanStep = KALMAN_PREDICT;
+	uint32_t GyroInitTime, GyroDeltaT;
+	int32_t ret = ISM330DHCX_Ok;
 
-	InitializeAHRS(&AHRS);
-	AccelInitTime = HAL_GetTick();
-	GyroInitTime = AccelInitTime;
-	BSP_SynchronizeIRQ(); //Synchronize with hardware timer with accelerometer sample frequency
+	tx_mutex_get(&MutexI2C2,TX_NO_WAIT);     //Lock I2C Bus
+	BSP_InitializeAHRS(&AHRS);               //Initialize heading by taking 5 seconds worth of data.
+	tx_mutex_put(&MutexI2C2);                //Release I2C Bus
+
+	GyroInitTime = HAL_GetTick();            //Capture timestamp when Accel and Gyro were initialized. Used to calculate DeltaT for Euler Integration later.
+
+	BSP_SynchronizeIRQ();                    //Synchronize hardware IRQ timer with accelerometer sample frequency
 	while(1)
 	{
-	    tx_mutex_get(&MutexI2C2,TX_NO_WAIT);               //Take I2C Mutex
-	    ret = BSP_ReadAccelXYZ(&AccelX, &AccelY, &AccelZ); //Read Accelerometer
-	    if(ret == ISM330DHCX_DataReady)
-	    {
-		    accelx = AccelX;                               //Store Data
-		    accely = AccelY;
-		    accelz = AccelZ;
-	    }
-	    ret = BSP_ReadGyroXYZ(&GyroX, &GyroY, &GyroZ);    //Read Gyroscope
-	    if(ret == ISM330DHCX_DataReady)
-	    {
-		    gyrox = GyroX;                                //Store Data
-		    gyroy = GyroY;
-		    gyroz = GyroZ;
-	    }
-	    tx_mutex_put(&MutexI2C2);                         //Put I2C Mutex back
-	    tx_thread_suspend(&Read_MotionThreadPtr);         //Suspend thread
+		switch(KalmanStep)
+		{
+		    case(KALMAN_PREDICT):
+		        tx_mutex_get(&MutexI2C2,TX_NO_WAIT);                      //Take I2C Mutex so we can safely read Gyro
+		        ret = BSP_ReadGyroXYZ(&GyroX, &GyroY, &GyroZ);            //Read Gyro
+		        tx_mutex_put(&MutexI2C2);                                 //Put Mutex Back
+		        if(ret != ISM330DHCX_DataReady)                           //Suspend if data isn't ready yet or there's an I2C problem.
+		        {
+		        	tx_thread_suspend(&Read_MotionThreadPtr);
+		        }else
+		        {
+		        	GyroDeltaT = HAL_GetTick() - GyroInitTime;            //Update DeltaT
+		        	GyroInitTime = HAL_GetTick();                         //Reset Ti (For DeltaT = Tnow - Ti)
+		        	BSP_KalmanGyroPredict(&AHRS, GyroX, GyroY, GyroZ, GyroDeltaT);//NYI KalmanPredict();
+		        	KalmanStep = KALMAN_UPDATE;
+		        }
+		        break;
+		    case(KALMAN_UPDATE):
+		        tx_mutex_get(&MutexI2C2,TX_NO_WAIT);
+		        ret = BSP_ReadAccelXYZ(&AccelX, &AccelY, &AccelZ);
+				tx_mutex_put(&MutexI2C2);
+		        if(ret == ISM330DHCX_DataReady)
+		        {
+		        	BSP_KalmanAccelUpdate(&AHRS, AccelX, AccelY, AccelZ);
+		        	KalmanStep = KALMAN_PREDICT;
+		        }
+		        tx_thread_suspend(&Read_MotionThreadPtr);
+		}
 	}
 }
 
@@ -799,19 +756,6 @@ void HAL_DCACHE_CleanAndInvalidateByAddrCallback(DCACHE_HandleTypeDef *hdcache)
 		tx_semaphore_put(&CameraCaptureFrame[1]); //Signal that frame 2 is finished capturing
 	}
 	FrameCount++; //Increment frame count (used in DCMI frame event callback above)
-}
-
-/***************************************************************************************************
- * @Brief: Convert orientation of measured vectors from Gyro/Accel sensors to "standard" flight
- *         orientation. i.e.: X axis = nose of plane, Y axis = wing of plane, Z axis = points down
- * @Param: X and Y measurements from accelerometer or gyroscope.
- * @Return: None
- ***************************************************************************************************/
-inline static VOID ConvertVectorOrientation(float *Xvector, float *Yvector)
-{
-	float temp = *Xvector;
-	*Xvector = *Yvector;
-	*Yvector = temp * (-1);
 }
 
 /***************************************************************************************************
