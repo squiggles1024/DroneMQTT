@@ -43,7 +43,8 @@ Core/Src/BoardSupportPackage/BSP_motion.o: \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_uart_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_cordic.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_dcmi.h \
- ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_exti.h
+ ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_exti.h \
+ ../Core/Src/BoardSupportPackage/BSP_TrigFunctions.h
 ../Core/Src/BoardSupportPackage/../ExternalHardware/ISM330DHCX.h:
 ../Core/Src/BoardSupportPackage/../ExternalHardware/ISM330DHCX_Registers.h:
 ../Core/Src/BoardSupportPackage/BSP_IOBus.h:
@@ -89,3 +90,4 @@ C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/Drone
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_cordic.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_dcmi.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_exti.h:
+../Core/Src/BoardSupportPackage/BSP_TrigFunctions.h:

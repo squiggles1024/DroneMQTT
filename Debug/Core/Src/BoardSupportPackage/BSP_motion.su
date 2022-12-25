@@ -1,6 +1,10 @@
-../Core/Src/BoardSupportPackage/BSP_motion.c:24:9:BSP_MotionSensorInit	168	static
-../Core/Src/BoardSupportPackage/BSP_motion.c:131:9:BSP_ReadAccelXYZ	32	static
-../Core/Src/BoardSupportPackage/BSP_motion.c:150:9:BSP_ReadGyroXYZ	32	static
-../Core/Src/BoardSupportPackage/BSP_motion.c:176:9:BSP_GetAccelPeriod	24	static
-../Core/Src/BoardSupportPackage/BSP_motion.c:189:9:BSP_GetGyroPeriod	24	static
-../Core/Src/BoardSupportPackage/BSP_motion.c:202:6:BSP_SynchronizeIRQ	24	static
+../Core/Src/BoardSupportPackage/BSP_motion.c:45:9:BSP_MotionSensorInit	168	static
+../Core/Src/BoardSupportPackage/BSP_motion.c:152:9:BSP_ReadAccelXYZ	32	static
+../Core/Src/BoardSupportPackage/BSP_motion.c:176:9:BSP_ReadGyroXYZ	32	static
+../Core/Src/BoardSupportPackage/BSP_motion.c:208:9:BSP_GetAccelPeriod	24	static
+../Core/Src/BoardSupportPackage/BSP_motion.c:221:9:BSP_GetGyroPeriod	24	static
+../Core/Src/BoardSupportPackage/BSP_motion.c:234:6:BSP_SynchronizeIRQ	24	static
+../Core/Src/BoardSupportPackage/BSP_motion.c:253:6:BSP_InitializeAHRS	64	static
+../Core/Src/BoardSupportPackage/BSP_motion.c:306:20:ConvertVectorOrientation	32	static
+../Core/Src/BoardSupportPackage/BSP_motion.c:319:6:BSP_KalmanGyroPredict	72	static
+../Core/Src/BoardSupportPackage/BSP_motion.c:360:6:BSP_KalmanAccelUpdate	56	static
