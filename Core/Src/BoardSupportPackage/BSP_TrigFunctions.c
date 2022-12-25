@@ -20,6 +20,27 @@ static const uint32_t cst_scale_tab[] =
 	CORDIC_SCALE_6, CORDIC_SCALE_7
 };
 
+static const CORDIC_ConfigTypeDef CosCordicConfig = {
+		.Function = CORDIC_FUNCTION_COSINE,
+		.Precision = CORDIC_PRECISION_6CYCLES,
+		.Scale = CORDIC_SCALE_0,
+		.NbWrite = CORDIC_NBWRITE_1,
+		.NbRead = CORDIC_NBREAD_1,
+		.InSize = CORDIC_INSIZE_32BITS,
+		.OutSize = CORDIC_OUTSIZE_32BITS,
+};
+
+static const CORDIC_ConfigTypeDef SinCordicConfig = {
+		.Function = CORDIC_FUNCTION_SINE,
+		.Precision = CORDIC_PRECISION_6CYCLES,
+		.Scale = CORDIC_SCALE_0,
+		.NbWrite = CORDIC_NBWRITE_1,
+		.NbRead = CORDIC_NBREAD_1,
+		.InSize = CORDIC_INSIZE_32BITS,
+		.OutSize = CORDIC_OUTSIZE_32BITS,
+};
+
+
 static int f32_to_q31(double input)
 {
 	const float Q31_MAX_F = 0x0.FFFFFFp0F;
@@ -29,9 +50,9 @@ static int f32_to_q31(double input)
 }
 
 
-float BSP_atan(float AngleInRads)
+float BSP_atan(float Ratio)
 {
-    float Scaled = AngleInRads;
+    float Scaled = Ratio;
     int32_t Input_Q31;
     int32_t n;
     uint32_t Scale;
@@ -49,10 +70,10 @@ float BSP_atan(float AngleInRads)
 
 
 
-	if(AngleInRads < -1.0f || AngleInRads > 1.0f)
+	if(Ratio < -1.0f || Ratio > 1.0f)
 	{
-		Scaled = AngleInRads / pow(2, (int)(log2(fabs(AngleInRads)) + 1));
-		n = log2(AngleInRads / Scaled);
+		Scaled = Ratio / pow(2, (int)(log2(fabs(Ratio)) + 1));
+		n = log2(Ratio / Scaled);
 
 		if(n >= 0 && n < 8)
 		{
@@ -68,4 +89,22 @@ float BSP_atan(float AngleInRads)
 	HAL_CORDIC_CalculateZO(&hcordic, &Input_Q31, &Output_Q31, 1, 0);
 	return q31_to_f32(Output_Q31 << n) * M_PI;
 
+}
+
+float BSP_sin(float AngleInRads)
+{
+    int32_t InputQ31 = f32_to_q31(fmod(AngleInRads, 2.0f * M_PI) / (2.0f * M_PI)) << 1;
+    int32_t Output_Q31;
+    HAL_CORDIC_Configure(&hcordic, &SinCordicConfig);
+    HAL_CORDIC_Calculate(&hcordic, &InputQ31, &Output_Q31, 1, 0);
+    return q31_to_f32(Output_Q31);
+}
+
+float BSP_cos(float AngleInRads)
+{
+    int32_t InputQ31 = f32_to_q31(fmod(AngleInRads, 2.0f * M_PI) / (2.0f * M_PI)) << 1;
+    int32_t Output_Q31;
+    HAL_CORDIC_Configure(&hcordic, &CosCordicConfig);
+    HAL_CORDIC_Calculate(&hcordic, &InputQ31, &Output_Q31, 1, 0);
+    return q31_to_f32(Output_Q31);
 }
