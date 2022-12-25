@@ -608,7 +608,7 @@ static void ConvertGData(ISM330DHCX_GyroFullScale_t GyroResolution, int16_t *buf
 	  {
 		  ConversionFactor = 0.140;
 	  }
-      *data = ConversionFactor * (*buffer) / 1000.0; //Div by 1000 to convert to DPS from mDPS
+      *data = ConversionFactor * (*buffer);
 }
 
 /***************************************************************************************************************************
