@@ -28,7 +28,7 @@ inline static void ConvertVectorOrientation(float *Xvector, float *Yvector, floa
 //#define KAL_Q_INIT    (0.000001f)
 //#define KAL_R_INIT   (-0.000001f)
 #define ACCEL_STD_DEV (0.5) //Accel measures angles with std dev of 0.5 degrees
-#define GYRO_STD_DEV  (5.0) //Gyro measures angles with std dev of 3.0 degrees
+#define GYRO_STD_DEV  (3.0) //Gyro measures angles with std dev of 3.0 degrees
 #define ROLL_RATE_INIT  (0.0)
 #define PITCH_RATE_INIT (0.0)
 #define YAW_RATE_INIT   (0.0)
