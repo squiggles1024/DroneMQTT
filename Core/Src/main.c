@@ -38,6 +38,7 @@
 #include "./BoardSupportPackage/BSP_environment.h"
 #include "./BoardSupportPackage/BSP_motion.h"
 #include "./BoardSupportPackage/BSP_LED.h"
+#include "BSP_MotorControl.h"
 #include <stdio.h>
 /* USER CODE END Includes */
 
@@ -116,6 +117,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_TIM7_Init();
   MX_SPI2_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   printf("\r\nSystem Starting\r\n");
   BSP_TempHumSensorInit();
@@ -125,6 +127,7 @@ int main(void)
   BSP_AmbientLightInit();
   BSP_RamInit();
   BSP_CameraInit();
+  BSP_MotorInit();
   printf("System Initialized\r\n");
   /* USER CODE END 2 */
 
