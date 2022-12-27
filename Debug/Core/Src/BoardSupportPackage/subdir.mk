@@ -7,6 +7,7 @@
 C_SRCS += \
 ../Core/Src/BoardSupportPackage/BSP_IOBus.c \
 ../Core/Src/BoardSupportPackage/BSP_LED.c \
+../Core/Src/BoardSupportPackage/BSP_MotorControl.c \
 ../Core/Src/BoardSupportPackage/BSP_TrigFunctions.c \
 ../Core/Src/BoardSupportPackage/BSP_camera.c \
 ../Core/Src/BoardSupportPackage/BSP_environment.c \
@@ -16,6 +17,7 @@ C_SRCS += \
 OBJS += \
 ./Core/Src/BoardSupportPackage/BSP_IOBus.o \
 ./Core/Src/BoardSupportPackage/BSP_LED.o \
+./Core/Src/BoardSupportPackage/BSP_MotorControl.o \
 ./Core/Src/BoardSupportPackage/BSP_TrigFunctions.o \
 ./Core/Src/BoardSupportPackage/BSP_camera.o \
 ./Core/Src/BoardSupportPackage/BSP_environment.o \
@@ -25,6 +27,7 @@ OBJS += \
 C_DEPS += \
 ./Core/Src/BoardSupportPackage/BSP_IOBus.d \
 ./Core/Src/BoardSupportPackage/BSP_LED.d \
+./Core/Src/BoardSupportPackage/BSP_MotorControl.d \
 ./Core/Src/BoardSupportPackage/BSP_TrigFunctions.d \
 ./Core/Src/BoardSupportPackage/BSP_camera.d \
 ./Core/Src/BoardSupportPackage/BSP_environment.d \
@@ -39,7 +42,7 @@ Core/Src/BoardSupportPackage/%.o Core/Src/BoardSupportPackage/%.su: ../Core/Src/
 clean: clean-Core-2f-Src-2f-BoardSupportPackage
 
 clean-Core-2f-Src-2f-BoardSupportPackage:
-	-$(RM) ./Core/Src/BoardSupportPackage/BSP_IOBus.d ./Core/Src/BoardSupportPackage/BSP_IOBus.o ./Core/Src/BoardSupportPackage/BSP_IOBus.su ./Core/Src/BoardSupportPackage/BSP_LED.d ./Core/Src/BoardSupportPackage/BSP_LED.o ./Core/Src/BoardSupportPackage/BSP_LED.su ./Core/Src/BoardSupportPackage/BSP_TrigFunctions.d ./Core/Src/BoardSupportPackage/BSP_TrigFunctions.o ./Core/Src/BoardSupportPackage/BSP_TrigFunctions.su ./Core/Src/BoardSupportPackage/BSP_camera.d ./Core/Src/BoardSupportPackage/BSP_camera.o ./Core/Src/BoardSupportPackage/BSP_camera.su ./Core/Src/BoardSupportPackage/BSP_environment.d ./Core/Src/BoardSupportPackage/BSP_environment.o ./Core/Src/BoardSupportPackage/BSP_environment.su ./Core/Src/BoardSupportPackage/BSP_motion.d ./Core/Src/BoardSupportPackage/BSP_motion.o ./Core/Src/BoardSupportPackage/BSP_motion.su ./Core/Src/BoardSupportPackage/BSP_ram.d ./Core/Src/BoardSupportPackage/BSP_ram.o ./Core/Src/BoardSupportPackage/BSP_ram.su
+	-$(RM) ./Core/Src/BoardSupportPackage/BSP_IOBus.d ./Core/Src/BoardSupportPackage/BSP_IOBus.o ./Core/Src/BoardSupportPackage/BSP_IOBus.su ./Core/Src/BoardSupportPackage/BSP_LED.d ./Core/Src/BoardSupportPackage/BSP_LED.o ./Core/Src/BoardSupportPackage/BSP_LED.su ./Core/Src/BoardSupportPackage/BSP_MotorControl.d ./Core/Src/BoardSupportPackage/BSP_MotorControl.o ./Core/Src/BoardSupportPackage/BSP_MotorControl.su ./Core/Src/BoardSupportPackage/BSP_TrigFunctions.d ./Core/Src/BoardSupportPackage/BSP_TrigFunctions.o ./Core/Src/BoardSupportPackage/BSP_TrigFunctions.su ./Core/Src/BoardSupportPackage/BSP_camera.d ./Core/Src/BoardSupportPackage/BSP_camera.o ./Core/Src/BoardSupportPackage/BSP_camera.su ./Core/Src/BoardSupportPackage/BSP_environment.d ./Core/Src/BoardSupportPackage/BSP_environment.o ./Core/Src/BoardSupportPackage/BSP_environment.su ./Core/Src/BoardSupportPackage/BSP_motion.d ./Core/Src/BoardSupportPackage/BSP_motion.o ./Core/Src/BoardSupportPackage/BSP_motion.su ./Core/Src/BoardSupportPackage/BSP_ram.d ./Core/Src/BoardSupportPackage/BSP_ram.o ./Core/Src/BoardSupportPackage/BSP_ram.su
 
 .PHONY: clean-Core-2f-Src-2f-BoardSupportPackage
 

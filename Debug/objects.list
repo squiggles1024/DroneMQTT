@@ -1,6 +1,7 @@
 "./AZURE_RTOS/App/app_azure_rtos.o"
 "./Core/Src/BoardSupportPackage/BSP_IOBus.o"
 "./Core/Src/BoardSupportPackage/BSP_LED.o"
+"./Core/Src/BoardSupportPackage/BSP_MotorControl.o"
 "./Core/Src/BoardSupportPackage/BSP_TrigFunctions.o"
 "./Core/Src/BoardSupportPackage/BSP_camera.o"
 "./Core/Src/BoardSupportPackage/BSP_environment.o"

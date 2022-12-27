@@ -1,0 +1,5 @@
+../Core/Src/BoardSupportPackage/BSP_MotorControl.c:25:6:BSP_MotorInit	8	static
+../Core/Src/BoardSupportPackage/BSP_MotorControl.c:38:13:BSP_SetMotorFrontRight	16	static
+../Core/Src/BoardSupportPackage/BSP_MotorControl.c:53:13:BSP_SetMotorFrontLeft	16	static
+../Core/Src/BoardSupportPackage/BSP_MotorControl.c:68:13:BSP_SetMotorBackLeft	16	static
+../Core/Src/BoardSupportPackage/BSP_MotorControl.c:83:13:BSP_SetMotorBackRight	16	static
