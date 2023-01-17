@@ -79,7 +79,7 @@ Core/Src/app_threadx.o: ../Core/Src/app_threadx.c \
  C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/ExternalHardware/ISM330DHCX.h \
  C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/ExternalHardware/ISM330DHCX_Registers.h \
  C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_LED.h \
- C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_TrigFunctions.h
+ C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_MotorControl.h
 ../Core/Inc/app_threadx.h:
 ../Middlewares/ST/threadx/common/inc/tx_api.h:
 ../Middlewares/ST/threadx/ports/cortex_m33/gnu/inc/tx_port.h:
@@ -167,4 +167,4 @@ C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/Drone
 C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/ExternalHardware/ISM330DHCX.h:
 C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/ExternalHardware/ISM330DHCX_Registers.h:
 C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_LED.h:
-C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_TrigFunctions.h:
+C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_MotorControl.h:
