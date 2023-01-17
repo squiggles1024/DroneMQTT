@@ -33,7 +33,7 @@
 #include "BSP_environment.h"
 #include "BSP_motion.h"
 #include "BSP_LED.h"
-#include "BSP_TrigFunctions.h"
+#include "BSP_MotorControl.h"
 #include "app_netxduo.h"
 #include <stdio.h>
 /* USER CODE END Includes */
@@ -595,9 +595,12 @@ VOID ReadMotionThread(ULONG init)
 		        if(ret == ISM330DHCX_DataReady)
 		        {
 		        	BSP_KalmanAccelUpdate(&AHRS, AccelX, AccelY, AccelZ);
+		        	BSP_FlightPID((DroneSetpoint_t){0,0,0,40.0}, (DroneSetpoint_t){AHRS.Roll, AHRS.Pitch, AHRS.YawRate, 40.0}, GyroDeltaT);
 		        	KalmanStep = KALMAN_PREDICT;
+
 		        }
 		        tx_thread_suspend(&Read_MotionThreadPtr);
+		        break;
 		}
 	}
 }
