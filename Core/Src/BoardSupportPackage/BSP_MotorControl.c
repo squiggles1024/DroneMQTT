@@ -47,6 +47,19 @@ void BSP_MotorInit(void)
 	  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
 	  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
 	  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_4);
+
+	  BSP_SetMotorFrontRight(10.0);
+	  BSP_SetMotorFrontLeft(10.0);
+	  BSP_SetMotorBackLeft(10.0);
+	  BSP_SetMotorBackRight(10.0);
+
+	  HAL_Delay(1000);
+
+	  BSP_SetMotorFrontRight(0.0);
+	  BSP_SetMotorFrontLeft(0.0);
+	  BSP_SetMotorBackLeft(0.0);
+	  BSP_SetMotorBackRight(00.0);
+
 }
 
 void BSP_FlightPID(DroneSetpoint_t Setpoint, DroneSetpoint_t CurrentState, float DeltaT)
