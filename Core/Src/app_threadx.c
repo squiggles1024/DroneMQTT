@@ -595,7 +595,7 @@ VOID ReadMotionThread(ULONG init)
 		        if(ret == ISM330DHCX_DataReady)
 		        {
 		        	BSP_KalmanAccelUpdate(&AHRS, AccelX, AccelY, AccelZ);
-		        	BSP_FlightPID((DroneSetpoint_t){0,0,0,1.0}, (DroneSetpoint_t){AHRS.Roll, AHRS.Pitch, AHRS.YawRate, 40.0}, GyroDeltaT);
+		        	BSP_FlightPID((DroneSetpoint_t){0,0,0,3.0}, (DroneSetpoint_t){AHRS.Roll, AHRS.Pitch, AHRS.YawRate, 40.0}, GyroDeltaT);
 		        	KalmanStep = KALMAN_PREDICT;
 
 		        }

@@ -10,27 +10,27 @@
 #define DUTY_100_TIMER (13450)           // 13439 = 82us.... +11 is from experimentation with logic analyzer
 #define DUTY_0_TIMER   (6730)            // 6719 = 42us..... +11 is from experimentation with logic analyzer
 #define TICKS_PER_PERCENT ((DUTY_100_TIMER - DUTY_0_TIMER) / 100.0f)
-#define DUTY_LIMIT     (80.0)
+#define DUTY_LIMIT     (40.0)
 
 #define FRONT_RIGHT_MOTOR_CHANNEL (htim3.Instance->CCR3)
 #define FRONT_LEFT_MOTOR_CHANNEL  (htim3.Instance->CCR4)
 #define BACK_LEFT_MOTOR_CHANNEL   (htim3.Instance->CCR1)
 #define BACK_RIGHT_MOTOR_CHANNEL  (htim3.Instance->CCR2)
 
-#define PitchKp (0.0f)
-#define PitchKi (0.0f)
-#define PitchKd (0.0f)
+#define PitchKp (0.01f)
+#define PitchKi (0.005f)
+#define PitchKd (0.00f)
 
-#define RollKp (0.0f)
-#define RollKi (0.0f)
-#define RollKd (0.0f)
+#define RollKp (0.01f)
+#define RollKi (0.005f)
+#define RollKd (0.00f)
 
 #define YawRateKp (0.0f)
 #define YawRateKi (0.0f)
 #define YawRateKd (0.0f)
 
 
-#define HOVER_DUTY (40.0)
+#define HOVER_DUTY (5.0)
 
 static void BSP_SetMotorFrontRight(float Duty);
 static void BSP_SetMotorFrontLeft(float Duty);
@@ -58,21 +58,49 @@ void BSP_MotorInit(void)
 	  BSP_SetMotorFrontRight(0.0);
 	  BSP_SetMotorFrontLeft(0.0);
 	  BSP_SetMotorBackLeft(0.0);
-	  BSP_SetMotorBackRight(00.0);
+	  BSP_SetMotorBackRight(0.0);
 
 }
 
+float *PID_Pitch_Mon;
+float *PID_Roll_Mon;
+float *PID_Yaw_Mon;
+
+float *FR_Duty_Mon;
+float *BR_Duty_Mon;
+float *FL_Duty_Mon;
+float *BL_Duty_Mon;
+
 void BSP_FlightPID(DroneSetpoint_t Setpoint, DroneSetpoint_t CurrentState, float DeltaT)
 {
-	float dt = DeltaT / 1000.0f;
-	float PID_Pitch = PIDPitch(Setpoint.Pitch, CurrentState.Pitch, dt);
-	float PID_Roll  = PIDRoll(Setpoint.Roll, CurrentState.Roll, dt);
-	float PID_Yaw   = PIDYawRate(Setpoint.YawRate, CurrentState.YawRate, dt);
 
-	float FrontRightDuty = Setpoint.Thrust + PID_Pitch + PID_Roll - PID_Yaw;
-	float FrontLeftDuty  = Setpoint.Thrust + PID_Pitch - PID_Roll + PID_Yaw;
-	float BackLeftDuty   = Setpoint.Thrust - PID_Pitch - PID_Roll - PID_Yaw;
-	float BackRightDuty  = Setpoint.Thrust - PID_Pitch + PID_Roll + PID_Yaw;
+	static float PID_Pitch;
+	static float PID_Roll;
+	static float PID_Yaw;
+	static float FrontRightDuty;
+	static float FrontLeftDuty;
+	static float BackLeftDuty;
+	static float BackRightDuty;
+
+	PID_Pitch_Mon = &PID_Pitch;
+	PID_Roll_Mon = &PID_Roll;
+	PID_Yaw_Mon = &PID_Yaw;
+	FR_Duty_Mon = &FrontRightDuty;
+	BR_Duty_Mon = &BackRightDuty;
+	FL_Duty_Mon = &FrontLeftDuty;
+	BL_Duty_Mon = &BackLeftDuty;
+
+	float dt = DeltaT / 1000.0f;
+	PID_Pitch = PIDPitch(Setpoint.Pitch, CurrentState.Pitch, dt);
+	PID_Roll  = PIDRoll(Setpoint.Roll, CurrentState.Roll, dt);
+	PID_Yaw   = PIDYawRate(Setpoint.YawRate, CurrentState.YawRate, dt);
+
+	FrontRightDuty = Setpoint.Thrust + PID_Pitch + PID_Roll - PID_Yaw;
+	FrontLeftDuty  = Setpoint.Thrust + PID_Pitch - PID_Roll + PID_Yaw;
+	BackLeftDuty   = Setpoint.Thrust - PID_Pitch - PID_Roll - PID_Yaw;
+	BackRightDuty  = Setpoint.Thrust - PID_Pitch + PID_Roll + PID_Yaw;
+
+
 
 	BSP_SetMotorFrontRight(FrontRightDuty);
 	BSP_SetMotorFrontLeft(FrontLeftDuty);
@@ -83,7 +111,7 @@ void BSP_FlightPID(DroneSetpoint_t Setpoint, DroneSetpoint_t CurrentState, float
 static float PIDPitch(float PitchSetpoint, float PitchCurrent, float dt)
 {
 	static float ErrorAccumulator, PreviousError;
-	float CurrentError = PitchCurrent - PitchSetpoint;
+	float CurrentError =  PitchSetpoint - PitchCurrent;
 
 	float result =  PitchKp*CurrentError + PitchKi*(ErrorAccumulator + ((CurrentError + PreviousError)/2)*dt) + PitchKd*((CurrentError - PreviousError)/dt);
 	ErrorAccumulator += CurrentError;
@@ -94,7 +122,7 @@ static float PIDPitch(float PitchSetpoint, float PitchCurrent, float dt)
 static float PIDRoll(float RollSetpoint, float RollCurrent, float dt)
 {
 	static float ErrorAccumulator, PreviousError;
-	float CurrentError = RollCurrent - RollSetpoint;
+	float CurrentError = RollSetpoint - RollCurrent;
 
 	float result =  RollKp*CurrentError + RollKi*(ErrorAccumulator + ((CurrentError + PreviousError)/2)*dt) + RollKd*((CurrentError - PreviousError)/dt);
 	ErrorAccumulator += CurrentError;
@@ -105,7 +133,7 @@ static float PIDRoll(float RollSetpoint, float RollCurrent, float dt)
 static float PIDYawRate(float YawRateSetpoint, float YawRateCurrent, float dt)
 {
 	static float ErrorAccumulator, PreviousError;
-	float CurrentError = YawRateCurrent - YawRateSetpoint;
+	float CurrentError = YawRateSetpoint - YawRateCurrent;
 
 	float result =  YawRateKp*CurrentError + YawRateKi*(ErrorAccumulator + ((CurrentError + PreviousError)/2)*dt) + YawRateKd*((CurrentError - PreviousError)/dt);
 	ErrorAccumulator += CurrentError;
