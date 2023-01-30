@@ -151,19 +151,19 @@ def PlotData():
     plt.subplot(1,NumberOfPlots,MagneticXFigure)
     plt.title(MagneticXFigureLabel)
     Bound = max(MagneticXDataBuffer.queue)*0.1
-    plt.ylim(min(MagneticXDataBuffer.queue) - Bound, max(MagneticXDataBuffer.queue) + Bound)
+    plt.ylim(min(MagneticXDataBuffer.queue) - abs(Bound), max(MagneticXDataBuffer.queue) + abs(Bound))
     plt.plot(MagTimeBuffer.queue,MagneticXDataBuffer.queue)
 
     plt.subplot(1,NumberOfPlots,MagneticYFigure)
     plt.title(MagneticYFigureLabel)
     Bound = max(MagneticYDataBuffer.queue)*0.1
-    plt.ylim(min(MagneticYDataBuffer.queue) - Bound, max(MagneticYDataBuffer.queue) + Bound)
+    plt.ylim(min(MagneticYDataBuffer.queue) - abs(Bound), max(MagneticYDataBuffer.queue) + abs(Bound))
     plt.plot(MagTimeBuffer.queue,MagneticYDataBuffer.queue)
 
     plt.subplot(1,NumberOfPlots,MagneticZFigure)
     plt.title(MagneticZFigureLabel)
     Bound = max(MagneticZDataBuffer.queue)*0.1
-    plt.ylim(min(MagneticZDataBuffer.queue) - Bound, max(MagneticZDataBuffer.queue) + Bound)
+    plt.ylim(min(MagneticZDataBuffer.queue) - abs(Bound), max(MagneticZDataBuffer.queue) + abs(Bound))
     plt.plot(MagTimeBuffer.queue,MagneticZDataBuffer.queue)
 
 ################################################################
