@@ -33,11 +33,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "./BoardSupportPackage/BSP_ram.h"
-#include "./BoardSupportPackage/BSP_camera.h"
-#include "./BoardSupportPackage/BSP_environment.h"
-#include "./BoardSupportPackage/BSP_motion.h"
-#include "./BoardSupportPackage/BSP_LED.h"
+#include "BSP_ram.h"
+#include "BSP_camera.h"
+#include "BSP_environment.h"
+#include "BSP_motion.h"
+#include "BSP_LED.h"
 #include "BSP_MotorControl.h"
 #include <stdio.h>
 /* USER CODE END Includes */
