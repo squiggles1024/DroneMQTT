@@ -102,8 +102,8 @@ int32_t BSP_MotionSensorInit(void)
 			.ODR_G = ISM330DHCX_G_52Hz,
 			.HPM_G = ISM330DHCX_DefaultSetting,
 			.HP_EN_G = ISM330DHCX_G_HP_Disabled,
-			.FTYPE = ISM330DHCX_DefaultSetting,
-			.LPF1_SEL_G = ISM330DHCX_LPF_Disabled,
+			.FTYPE = ISM330DHCX_LPF1_111,
+			.LPF1_SEL_G = ISM330DHCX_LPF_Enabled,
 			.G_HM_MODE = ISM330DHCX_G_HPModeEnabled,
 
 			.FS_G = ISM330DHCX_G_2000DPS,
