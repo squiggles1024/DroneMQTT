@@ -17,6 +17,7 @@ typedef struct
 	float Thrust;
 }__attribute__((packed))DroneSetpoint_t;
 
+
 void BSP_MotorInit(void);
 void BSP_FlightPID(DroneSetpoint_t Setpoint, DroneSetpoint_t CurrentState, float DeltaT);
 

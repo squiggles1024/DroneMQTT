@@ -17,20 +17,26 @@
 #define BACK_LEFT_MOTOR_CHANNEL   (htim3.Instance->CCR1)
 #define BACK_RIGHT_MOTOR_CHANNEL  (htim3.Instance->CCR2)
 
-#define PitchKp (0.01f)
-#define PitchKi (0.005f)
-#define PitchKd (0.00f)
+#define RollKp (0.05f)
+#define RollKi (0.04f)
+#define RollKd (0.005f)
 
-#define RollKp (0.01f)
-#define RollKi (0.005f)
-#define RollKd (0.00f)
+#define PitchKp (0.06f)
+#define PitchKi (0.05f)
+#define PitchKd (0.006f)
 
-#define YawRateKp (0.0f)
-#define YawRateKi (0.0f)
-#define YawRateKd (0.0f)
+#define YawRateKp (0.005f)
+#define YawRateKi (0.004f)
+#define YawRateKd (0.0005f)
 
+#define IntegralLimit (0.1)
 
-#define HOVER_DUTY (5.0)
+#define HOVER_DUTY (7.5)
+#define FRONT_RIGHT_CAL_FACTOR (.5)
+#define FRONT_LEFT_CAL_FACTOR (.2)
+#define BACK_LEFT_CAL_FACTOR (.45)
+#define BACK_RIGHT_CAL_FACTOR (.15)
+
 
 static void BSP_SetMotorFrontRight(float Duty);
 static void BSP_SetMotorFrontLeft(float Duty);
@@ -110,41 +116,81 @@ void BSP_FlightPID(DroneSetpoint_t Setpoint, DroneSetpoint_t CurrentState, float
 
 static float PIDPitch(float PitchSetpoint, float PitchCurrent, float dt)
 {
-	static float ErrorAccumulator, PreviousError;
+	static float PreviousError;
+	static float ProportionalTerm;
+	static float IntegralTerm;
+	static float DerivativeTerm;
 	float CurrentError =  PitchSetpoint - PitchCurrent;
 
-	float result =  PitchKp*CurrentError + PitchKi*(ErrorAccumulator + ((CurrentError + PreviousError)/2)*dt) + PitchKd*((CurrentError - PreviousError)/dt);
-	ErrorAccumulator += CurrentError;
+	ProportionalTerm = PitchKp*CurrentError;
+	IntegralTerm     = IntegralTerm + PitchKi*(((CurrentError + PreviousError)/2)*dt);
+	DerivativeTerm   = PitchKd*((CurrentError - PreviousError)/dt);
+
+	if(IntegralTerm >= IntegralLimit)
+	{
+		IntegralTerm = IntegralLimit;
+	}else if(IntegralLimit <= -IntegralLimit)
+	{
+		IntegralTerm = -IntegralLimit;
+	}
+
 	PreviousError = CurrentError;
-	return result;
+	return ProportionalTerm + IntegralTerm + DerivativeTerm;
 }
 
 static float PIDRoll(float RollSetpoint, float RollCurrent, float dt)
 {
-	static float ErrorAccumulator, PreviousError;
-	float CurrentError = RollSetpoint - RollCurrent;
+	static float PreviousError;
+	static float ProportionalTerm;
+	static float IntegralTerm;
+	static float DerivativeTerm;
+	float CurrentError =  RollSetpoint - RollCurrent;
 
-	float result =  RollKp*CurrentError + RollKi*(ErrorAccumulator + ((CurrentError + PreviousError)/2)*dt) + RollKd*((CurrentError - PreviousError)/dt);
-	ErrorAccumulator += CurrentError;
+	ProportionalTerm = RollKp*CurrentError;
+	IntegralTerm     = IntegralTerm + RollKi*(((CurrentError + PreviousError)/2)*dt);
+	DerivativeTerm   = RollKd*((CurrentError - PreviousError)/dt);
+
+	if(IntegralTerm >= IntegralLimit)
+	{
+		IntegralTerm = IntegralLimit;
+	}else if(IntegralLimit <= -IntegralLimit)
+	{
+		IntegralTerm = -IntegralLimit;
+	}
+
 	PreviousError = CurrentError;
-	return result;
+	return ProportionalTerm + IntegralTerm + DerivativeTerm;
 }
 
 static float PIDYawRate(float YawRateSetpoint, float YawRateCurrent, float dt)
 {
-	static float ErrorAccumulator, PreviousError;
-	float CurrentError = YawRateSetpoint - YawRateCurrent;
+	static float PreviousError;
+	static float ProportionalTerm;
+	static float IntegralTerm;
+	static float DerivativeTerm;
+	float CurrentError =  YawRateSetpoint - YawRateCurrent;
 
-	float result =  YawRateKp*CurrentError + YawRateKi*(ErrorAccumulator + ((CurrentError + PreviousError)/2)*dt) + YawRateKd*((CurrentError - PreviousError)/dt);
-	ErrorAccumulator += CurrentError;
+	ProportionalTerm = YawRateKp*CurrentError;
+	IntegralTerm     = IntegralTerm + YawRateKi*(((CurrentError + PreviousError)/2)*dt);
+	DerivativeTerm   = YawRateKi*((CurrentError - PreviousError)/dt);
+
+	if(IntegralTerm >= IntegralLimit)
+	{
+		IntegralTerm = IntegralLimit;
+	}else if(IntegralLimit <= -IntegralLimit)
+	{
+		IntegralTerm = -IntegralLimit;
+	}
+
 	PreviousError = CurrentError;
-	return result;
+	return ProportionalTerm + IntegralTerm + DerivativeTerm;
 }
 
 
 
 static void BSP_SetMotorFrontRight(float Duty)
 {
+
 	if(Duty < 0)
 	{
 		Duty = 0;
@@ -155,6 +201,7 @@ static void BSP_SetMotorFrontRight(float Duty)
 		Duty = DUTY_LIMIT;
 	}
 
+	Duty = Duty + FRONT_RIGHT_CAL_FACTOR;
 	FRONT_RIGHT_MOTOR_CHANNEL = TICKS_PER_PERCENT * Duty + DUTY_0_TIMER;
 }
 
@@ -170,6 +217,7 @@ static void BSP_SetMotorFrontLeft(float Duty)
 		Duty = DUTY_LIMIT;
 	}
 
+	Duty = Duty + FRONT_LEFT_CAL_FACTOR;
 	FRONT_LEFT_MOTOR_CHANNEL = TICKS_PER_PERCENT * Duty + DUTY_0_TIMER;
 }
 
@@ -185,6 +233,7 @@ static void BSP_SetMotorBackLeft(float Duty)
 		Duty = DUTY_LIMIT;
 	}
 
+	Duty = Duty + BACK_LEFT_CAL_FACTOR;
 	BACK_LEFT_MOTOR_CHANNEL = TICKS_PER_PERCENT * Duty + DUTY_0_TIMER;
 }
 
@@ -200,5 +249,6 @@ static void BSP_SetMotorBackRight(float Duty)
 		Duty = DUTY_LIMIT;
 	}
 
+	Duty = Duty + BACK_RIGHT_CAL_FACTOR;
 	BACK_RIGHT_MOTOR_CHANNEL = TICKS_PER_PERCENT * Duty + DUTY_0_TIMER;
 }
