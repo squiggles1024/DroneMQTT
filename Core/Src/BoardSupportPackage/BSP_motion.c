@@ -15,25 +15,27 @@
 
 /* Private Variables (Sensor Handle) */
 static ISM330DHCX_Handle_t MotionSensor;
-static const float CalibOffsetAccelX = 0.0016;
-static const float CalibOffsetAccelY = 0.0030;
-static const float CalibOffsetAccelZ = 0.0082;
-static const float CalibOffsetGyroX = -0.02;
-static const float CalibOffsetGyroY = -0.62;
-static const float CalibOffsetGyroZ = -0.20;
+static const float CalibOffsetAccelX = 0.00;
+static const float CalibOffsetAccelY = 0.00;
+static const float CalibOffsetAccelZ = 0.00;
+static const float CalibOffsetGyroX =  0.00;
+static const float CalibOffsetGyroY =  0.00;
+static const float CalibOffsetGyroZ =  0.00;
 inline static void ConvertVectorOrientation(float *Xvector, float *Yvector, float *Zvector);
 
 #define AHRS_INIT_TIMESLICE (5000)          //Initialize Roll/Pitch with 5 seconds worth of raw data
 //#define KAL_P_INIT    (1.0f)
 //#define KAL_Q_INIT    (0.000001f)
 //#define KAL_R_INIT   (-0.000001f)
-#define ACCEL_STD_DEV (0.5) //Accel measures angles with std dev of 0.5 degrees
-#define GYRO_STD_DEV  (3.0) //Gyro measures angles with std dev of 3.0 degrees
+#define ACCEL_STD_DEV (1.0) //Accel measures angles with std dev of 0.5 degrees
+#define GYRO_STD_DEV  (12.0) //Gyro measures angles with std dev of 3.0 degrees
 #define ROLL_RATE_INIT  (0.0)
 #define PITCH_RATE_INIT (0.0)
 #define YAW_RATE_INIT   (0.0)
 #define ROLL_INIT_STD   (1.0)
 #define PITCH_INIT_STD  (1.0)
+
+#define YAWRATE_ALPHA (1.0)
 
 /********************************************************************************************************************************************************************
  * @Brief: Initializes motion sensor hardware and handle
@@ -88,7 +90,7 @@ int32_t BSP_MotionSensorInit(void)
 			.XL_HM_MODE = ISM330DHCX_XL_HPModeEnabled,
 			.HP_SLOPE_XL_EN = ISM330DHCX_XL_LowPass,
 			.LPF2_XL_EN =ISM330DHCX_XL_SSF_Enabled,
-			.HPCF_XL = ISM330DHCX_ODRDiv20,
+			.HPCF_XL = ISM330DHCX_ODRDiv4,
 			.USR_OFF_ON_OUT = ISM330DHCX_XL_UserOffsetOutputDisabled,
 			.USR_OFF_W = ISM330DHCX_DefaultSetting,
 			.X_OFS_USR = ISM330DHCX_DefaultSetting,
@@ -106,7 +108,7 @@ int32_t BSP_MotionSensorInit(void)
 			.LPF1_SEL_G = ISM330DHCX_LPF_Enabled,
 			.G_HM_MODE = ISM330DHCX_G_HPModeEnabled,
 
-			.FS_G = ISM330DHCX_G_2000DPS,
+			.FS_G = ISM330DHCX_G_500DPS,
 
 			.DRDY_MASK = ISM330DHCX_DefaultSetting,
 
@@ -333,7 +335,8 @@ void BSP_KalmanGyroPredict (AHRS_Handle_t *Attitude, float NewGyroX, float NewGy
 	//Compute New Roll, Pitch, and Yaw Rates
 	Attitude->RollRate  =  (NewGyroX + TanPitch * (NewGyroY * SinRoll + NewGyroZ * CosRoll));
 	Attitude->PitchRate =  (NewGyroY*CosRoll    -  NewGyroZ*SinRoll);
-	Attitude->YawRate   =  (NewGyroY*SinRoll / CosPitch) + (NewGyroZ * CosRoll / CosPitch);
+
+	Attitude->YawRate   =  (1 - YAWRATE_ALPHA)*Attitude->YawRate + YAWRATE_ALPHA*((NewGyroY*SinRoll / CosPitch) + (NewGyroZ * CosRoll / CosPitch));
 
 	Attitude->P[0][0] = ((dt*dt*dt*dt*GYRO_STD_DEV*GYRO_STD_DEV)/4) + dt*(Attitude->P[0][2]+Attitude->P[2][2]*dt) + (Attitude->P[0][0] + Attitude->P[2][0]*dt);
 	Attitude->P[0][1] = dt*(Attitude->P[0][3] + Attitude->P[2][3]*dt) + Attitude->P[0][1] + Attitude->P[2][1]*dt;
