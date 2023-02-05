@@ -24,6 +24,7 @@ NetXDuo/App/app_netxduo.o: ../NetXDuo/App/app_netxduo.c \
  ../Middlewares/ST/netxduo/common/inc/nx_ipv6.h \
  ../NetXDuo/Target/nx_driver_emw3080.h \
  ../NetXDuo/Target/nx_driver_framework.h \
+ C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_MotorControl.h \
  ../AZURE_RTOS/App/app_azure_rtos.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal.h \
  ../Core/Inc/stm32u5xx_hal_conf.h \
@@ -93,6 +94,7 @@ NetXDuo/App/app_netxduo.o: ../NetXDuo/App/app_netxduo.c \
 ../Middlewares/ST/netxduo/common/inc/nx_ipv6.h:
 ../NetXDuo/Target/nx_driver_emw3080.h:
 ../NetXDuo/Target/nx_driver_framework.h:
+C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_MotorControl.h:
 ../AZURE_RTOS/App/app_azure_rtos.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal.h:
 ../Core/Inc/stm32u5xx_hal_conf.h:

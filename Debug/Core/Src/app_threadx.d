@@ -62,8 +62,10 @@ Core/Src/app_threadx.o: ../Core/Src/app_threadx.c \
  ../Middlewares/ST/netxduo/common/inc/nx_ipv4.h \
  ../Middlewares/ST/netxduo/common/inc/nx_ipv6.h \
  ../NetXDuo/Target/nx_driver_emw3080.h \
- ../NetXDuo/Target/nx_driver_framework.h ../Core/Inc/tim.h \
- ../Core/Inc/main.h ../Core/Inc/i2c.h ../Core/Inc/dcache.h \
+ ../NetXDuo/Target/nx_driver_framework.h \
+ C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_MotorControl.h \
+ ../Core/Inc/tim.h ../Core/Inc/main.h ../Core/Inc/i2c.h \
+ ../Core/Inc/dcache.h \
  C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_ram.h \
  C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_camera.h \
  C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_environment.h \
@@ -78,8 +80,7 @@ Core/Src/app_threadx.o: ../Core/Src/app_threadx.c \
  C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_motion.h \
  C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/ExternalHardware/ISM330DHCX.h \
  C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/ExternalHardware/ISM330DHCX_Registers.h \
- C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_LED.h \
- C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_MotorControl.h
+ C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_LED.h
 ../Core/Inc/app_threadx.h:
 ../Middlewares/ST/threadx/common/inc/tx_api.h:
 ../Middlewares/ST/threadx/ports/cortex_m33/gnu/inc/tx_port.h:
@@ -148,6 +149,7 @@ Core/Src/app_threadx.o: ../Core/Src/app_threadx.c \
 ../Middlewares/ST/netxduo/common/inc/nx_ipv6.h:
 ../NetXDuo/Target/nx_driver_emw3080.h:
 ../NetXDuo/Target/nx_driver_framework.h:
+C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_MotorControl.h:
 ../Core/Inc/tim.h:
 ../Core/Inc/main.h:
 ../Core/Inc/i2c.h:
@@ -167,4 +169,3 @@ C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/Drone
 C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/ExternalHardware/ISM330DHCX.h:
 C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/ExternalHardware/ISM330DHCX_Registers.h:
 C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_LED.h:
-C:/Users/evanl/OneDrive/Documents/Embedded_Software_Workspaces/ExampleCode/DroneMQTT/Core/Src/BoardSupportPackage/BSP_MotorControl.h:
