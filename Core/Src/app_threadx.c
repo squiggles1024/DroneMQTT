@@ -559,6 +559,7 @@ VOID ReadMotionThread(ULONG init)
 	float AccelX = 0, AccelY = 0, AccelZ = 0;
 	float GyroX = 0, GyroY = 0, GyroZ = 0;
 	static uint8_t KalmanStep = KALMAN_PREDICT;
+	static DroneSetpoint_t DroneSetpoint;
 	uint32_t GyroInitTime, GyroDeltaT;
 	int32_t ret = ISM330DHCX_Ok;
 
@@ -571,6 +572,9 @@ VOID ReadMotionThread(ULONG init)
 	BSP_SynchronizeIRQ();                    //Synchronize hardware IRQ timer with accelerometer sample frequency
 	while(1)
 	{
+		if(ControllerQueue.tx_queue_available_storage == 0){
+			tx_queue_receive(&ControllerQueue, &DroneSetpoint, TX_WAIT_FOREVER);
+		}
 		switch(KalmanStep)
 		{
 		    case(KALMAN_PREDICT):
@@ -595,7 +599,7 @@ VOID ReadMotionThread(ULONG init)
 		        if(ret == ISM330DHCX_DataReady)
 		        {
 		        	BSP_KalmanAccelUpdate(&AHRS, AccelX, AccelY, AccelZ);
-		        	BSP_FlightPID((DroneSetpoint_t){0,0,0,3.0}, (DroneSetpoint_t){AHRS.Roll, AHRS.Pitch, AHRS.YawRate, 40.0}, GyroDeltaT);
+		        	BSP_FlightPID(DroneSetpoint, (DroneSetpoint_t){AHRS.Roll, AHRS.Pitch, AHRS.YawRate, 0}, GyroDeltaT);
 		        	KalmanStep = KALMAN_PREDICT;
 
 		        }

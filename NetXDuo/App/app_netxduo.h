@@ -34,6 +34,7 @@
 #include "nxd_mqtt_client.h"
 #include "nxd_dns.h"
 #include "nx_driver_emw3080.h"
+#include "BSP_MotorControl.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -42,6 +43,7 @@
  extern TX_THREAD MQTTThread;
  extern NXD_MQTT_CLIENT MQTTClient;
  extern TX_MUTEX SPI_MUTEX;
+ extern TX_QUEUE ControllerQueue;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -134,6 +136,9 @@ UINT MX_NetXDuo_Init(VOID *memory_ptr);
 #define CAMERA_PAYLOAD_FRAMES       (1)
 #define CAMERA_MESSAGE_SIZE         (sizeof(UINT*))
 #define CAMERA_QUEUE_SIZE           (CAMERA_PAYLOAD_FRAMES * CAMERA_MESSAGE_SIZE)
+#define CONTROLLER_PAYLOAD_SIZE     (sizeof(DroneSetpoint_t))
+#define CONTROLLER_MESSAGE_SIZE     (TX_4_ULONG)
+#define CONTROLLER_QUEUE_SIZE       (CONTROLLER_PAYLOAD_SIZE)
 
 /* USER CODE END PD */
 

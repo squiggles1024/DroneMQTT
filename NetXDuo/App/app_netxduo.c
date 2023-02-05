@@ -88,6 +88,8 @@ static UCHAR MQTT_MessageBuffer[MQTT_MessageBufferLen];
 extern unsigned int mosquitto_der_len; //Length of certificate
 extern unsigned char mosquitto_der[];  //der encoded x509 certificate exported as a .h file.
 
+TX_QUEUE ControllerQueue;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -246,7 +248,13 @@ UINT MX_NetXDuo_Init(VOID *memory_ptr)
   {
 	  return ret;
   }
-  ret = tx_mutex_create(&SPI_MUTEX,"SPI Mutex", TX_INHERIT);                                             //Create SPI Mutex to prevent MQTT Recieve/Transmit threads from clashing.
+  ret = tx_mutex_create(&SPI_MUTEX,"SPI Mutex", TX_INHERIT);                                                  //Create SPI Mutex to prevent MQTT Recieve/Transmit threads from clashing.
+
+  if(tx_byte_allocate(byte_pool, (VOID **) &Ptr, 100, TX_NO_WAIT) != TX_SUCCESS)                              //Allocate space for Controller Queue
+  {
+	  return TX_POOL_ERROR;
+  }
+  ret = tx_queue_create(&ControllerQueue, "Controller Queue", TX_4_ULONG, Ptr, CONTROLLER_QUEUE_SIZE);        //Create Controller queue
   /* USER CODE END MX_NetXDuo_Init */
 
   return ret;
@@ -420,6 +428,8 @@ static VOID MQTTMessageRecieved_CB(NXD_MQTT_CLIENT* Client, UINT MsgCount)
 	UINT ActualMessageLength = 0;
     static ULONG MessageCounter = 0;
 	UINT ret = NX_SUCCESS;
+	DroneSetpoint_t *SetPoint;
+	DroneSetpoint_t Dummy;
     while(Remaining > 0)
     {
     	tx_mutex_get(&SPI_MUTEX,TX_NO_WAIT);                             //Take SPI Mutex
@@ -440,6 +450,12 @@ static VOID MQTTMessageRecieved_CB(NXD_MQTT_CLIENT* Client, UINT MsgCount)
     	Remaining--;
     	MessageCounter++;
     }
+    SetPoint = (DroneSetpoint_t*)MQTT_MessageBuffer;
+    if(ControllerQueue.tx_queue_available_storage == 0)
+    {
+    	tx_queue_receive(&ControllerQueue, &Dummy,TX_NO_WAIT);
+    }
+    tx_queue_send(&ControllerQueue, SetPoint, TX_WAIT_FOREVER);
     //Push Controller Data Here
 }
 
